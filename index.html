@@ -5,12 +5,12 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="http://peterchealse.github.io">
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://peterchealse.github.io/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
@@ -54,7 +54,9 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/随笔/">随笔</a></li>
+				<li><a href="/tags/工程化/">工程化</a></li>
+	        
+				<li><a href="/tags/javascript/">javascript</a></li>
 	        
 			</ul>
 		</nav>
@@ -112,6 +114,8 @@
 			
 				
 			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -129,12 +133,14 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 33.333333333333336%"><a href="/tags/工程化/">工程化</a></li>
+		        
+					<li style="width: 33.333333333333336%"><a href="/tags/javascript/">javascript</a></li>
 		        
 				</ul>
 			</nav>
@@ -151,28 +157,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-im" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-babel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/28/babel/">IM</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/28/babel/" class="archive-article-date">
+  	<time datetime="2017-08-28T07:38:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-28</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="IM简述"><a href="#IM简述" class="headerlink" title="IM简述"></a>IM简述</h1><p>最近涉及到一些即时通讯的知识，大概记录一下</p>
-<h4 id="通讯协议及方式"><a href="#通讯协议及方式" class="headerlink" title="通讯协议及方式"></a>通讯协议及方式</h4><ol>
-<li>TCP/IP （普遍采用该方式）</li>
-<li>UDP</li>
-<li>如果是web通讯，那么包含以下方式：短轮询、Comet、Websocket、SSE。由于浏览器只是一个客户端，那么通讯是依赖于服务器的，这是跟移动应用或者桌面应用一个区别的地方。</li>
-</ol>
-<h4 id="通讯方式"><a href="#通讯方式" class="headerlink" title="通讯方式"></a>通讯方式</h4><ol>
-<li>对等通讯方式（Peer To Peer） ，不经过IM服务器</li>
-<li>通过IM服务器中转（代理通讯）</li>
-<li>离线通讯（离线消息，通过服务器缓存）</li>
-</ol>
-<p>步骤：</p>
-<ol>
-<li>登陆，Im服务器进行验证，更新登陆状态</li>
-<li>读取IM服务器好友列表，获取Ip，端口等信息</li>
-<li>直接根据好友信息进行对等通讯，或者通过服务器进行中转通讯</li>
-</ol>
+        <h1 id="1-preset"><a href="#1-preset" class="headerlink" title="1.preset-*"></a>1.preset-*</h1><h3 id="官方preset"><a href="#官方preset" class="headerlink" title="官方preset"></a><a href="https://babeljs.io/docs/plugins/#presets-official-presets" target="_blank" rel="external">官方preset</a></h3><p>比如babel-preset-es2015将ES6编译成ES5，preset-2017处理函数参数逗号和gennerator.</p>
+<h3 id="Babel-preset-env"><a href="#Babel-preset-env" class="headerlink" title="Babel-preset-env"></a><a href="https://babeljs.io/docs/plugins/preset-env/" target="_blank" rel="external">Babel-preset-env</a></h3><p>支持es标准的特性，能够根据配置采用特定语法处理插件。比方说配置成支持chrome 56, 很多es6已经支持了，就不需要在转成一大坨es5了，减小了bundle的体积。原理比较粗暴，他参考<a href="https://github.com/kangax/compat-table" target="_blank" rel="external">compat-table</a> 把每个浏览器版本支持哪些特性都写在本地的文件里了。</p>
+<h3 id="preset-latest"><a href="#preset-latest" class="headerlink" title="preset-latest"></a><a href="https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-" target="_blank" rel="external">preset-latest</a></h3><p>顾名思义，最新的，包括所有的官方preset-*, 但是已经deprecated, 因为env的存在。</p>
+<h3 id="stage-X"><a href="#stage-X" class="headerlink" title="stage-X"></a><a href="https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-" target="_blank" rel="external">stage-X</a></h3><p>相对于preset-<em>, 此插件支持尚未被发布为es标准的实验性质的语法特性，意思就是后面可能会被干掉的。比如说object-rest-spread.<br>这个比较蛋疼，只能说是<em>*特定时间</em></em>，处于某个状态（0，1，2，3，4）的一系列特性的集合。 babel正在考虑废除，因为直接配置插件更加直观。</p>
+<h1 id="2-Transform-plugin"><a href="#2-Transform-plugin" class="headerlink" title="2. Transform plugin"></a>2. Transform plugin</h1><p>包含官方和社区插件。他们就是干活的小兵， 组成了preset的头部，裆部和其他部位。</p>
+<h3 id="babel-plugin-transform-runtime"><a href="#babel-plugin-transform-runtime" class="headerlink" title="babel-plugin-transform-runtime"></a>babel-plugin-transform-runtime</h3><p>对于JavaScript新增的API和一些全局对象上的方法，在运行时动态插入兼容补丁，避免在每个文件插入重复的补丁。调试的时候可以看一下每个文件头部被插入了一段extend之类的代码。</p>
+<h1 id="3-Babel-polyfill"><a href="#3-Babel-polyfill" class="headerlink" title="3. Babel-polyfill"></a>3. Babel-polyfill</h1><p>需要修改内置api才能达成的功能，譬如：扩展String.prototype，给上面增加includes方法，就属于修改内置API的范畴。这类操作就由polyfill提供。</p>
+<h1 id="4-babel-register-babel-node-babel-core"><a href="#4-babel-register-babel-node-babel-core" class="headerlink" title="4. babel-register,babel-node,babel-core"></a>4. babel-register,babel-node,babel-core</h1><p>参考阮老师文章 <a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2016/01/babel.html</a></p>
 
       
 
@@ -181,11 +193,26 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/26/im/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/28/babel/">展开全文 >></a>
         </p>
       
 
@@ -215,19 +242,43 @@
 
 
   
-    <article id="post-babel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-im" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/28/im/">IM</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/28/im/" class="archive-article-date">
+  	<time datetime="2017-08-28T07:38:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-28</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="关于Babel"><a href="#关于Babel" class="headerlink" title="关于Babel"></a>关于Babel</h1><h2 id="预设-babel-preset"><a href="#预设-babel-preset" class="headerlink" title="预设 babel-preset-*"></a>预设 babel-preset-*</h2><h3 id="babel-preset-es2015"><a href="#babel-preset-es2015" class="headerlink" title="babel-preset-es2015"></a>babel-preset-es2015</h3><p>ES6语法编译成ES5</p>
-<h3 id="Babel-preset-stage"><a href="#Babel-preset-stage" class="headerlink" title="Babel-preset-stage-*"></a>Babel-preset-stage-*</h3><p>支持尚未被发布为JavaScript标准的特性。这个比较蛋疼，只能说是<strong>特定时间</strong>，处于某个状态（0，1，2，3，4）的一系列特性的集合。 babel正在考虑废除，直接配置插件更加直观。</p>
-<h3 id="Babel-preset-env"><a href="#Babel-preset-env" class="headerlink" title="Babel-preset-env"></a>Babel-preset-env</h3><p>支持已经发布为JavaScript标准的特性，能够根据配置采用特定语法处理插件。比方说配置成支持chrome 56, 很多es6已经支持了， 就不需要在转成一大坨es5了，减小了bundle的体积。原理比较粗暴，他把每个浏览器版本支持哪些特性都写在本地的json和js文件里面了。</p>
-<h2 id="插件-Babel-plugin"><a href="#插件-Babel-plugin" class="headerlink" title="插件 Babel-plugin-*"></a>插件 Babel-plugin-*</h2><blockquote>
-<p>包含官方和社区</p>
-</blockquote>
-<h3 id="babel-plugin-transform-runtime"><a href="#babel-plugin-transform-runtime" class="headerlink" title="babel-plugin-transform-runtime"></a>babel-plugin-transform-runtime</h3><p>对于JavaScript新增的API和一些全局对象上的方法，在运行时动态插入兼容补丁，避免在每个文件插入重复的补丁。调试的时候可以看一下每个文件头部被插入了一段extend之类的代码。</p>
-<h3 id="Babel-polyfill"><a href="#Babel-polyfill" class="headerlink" title="Babel-polyfill"></a>Babel-polyfill</h3><p>需要修改内置api才能达成的功能，譬如：扩展String.prototype，给上面增加includes方法，就属于修改内置API的范畴。这类操作就由polyfill提供。</p>
+        <p>最近涉及到一些即时通讯的知识，大概记录一下</p>
+<h4 id="通讯协议及方式"><a href="#通讯协议及方式" class="headerlink" title="通讯协议及方式"></a>通讯协议及方式</h4><ol>
+<li>TCP/IP （普遍采用该方式）</li>
+<li>UDP</li>
+<li>如果是web通讯，那么包含以下方式：短轮询、Comet、Websocket、SSE。由于浏览器只是一个客户端，那么通讯是依赖于服务器的，这是跟移动应用或者桌面应用一个区别的地方。</li>
+</ol>
+<h4 id="通讯方式"><a href="#通讯方式" class="headerlink" title="通讯方式"></a>通讯方式</h4><ol>
+<li>对等通讯方式（Peer To Peer） ，不经过IM服务器</li>
+<li>通过IM服务器中转（代理通讯）</li>
+<li>离线通讯（离线消息，通过服务器缓存）</li>
+</ol>
+<p>步骤：</p>
+<ol>
+<li>登陆，Im服务器进行验证，更新登陆状态</li>
+<li>读取IM服务器好友列表，获取Ip，端口等信息</li>
+<li>直接根据好友信息进行对等通讯，或者通过服务器进行中转通讯</li>
+</ol>
 
       
 
@@ -236,11 +287,26 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/26/babel/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/08/28/im/">展开全文 >></a>
         </p>
       
 
@@ -358,6 +424,26 @@
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">工程化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">babel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">webpack</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IM</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
