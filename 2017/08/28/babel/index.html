@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://peterchealse.github.io/2017/08/28/babel/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.preset-*官方preset举例：preset-es2015将ES6编译成ES5，preset-2017处理2017中的语法特性. Babel-preset-env支持所有es标准的特性，能够根据配置采用特定语法处理插件。比方说配置成支持chrome 56, 很多es6已经支持了，就不需要在转成一大坨es5了，减小了bundle的体积。原理比较粗暴，他参考compat-table 把每个浏">
-<meta property="og:updated_time" content="2017-08-28T09:29:33.000Z">
+<meta property="og:updated_time" content="2017-08-28T12:09:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Babel与构建优化">
 <meta name="twitter:description" content="1.preset-*官方preset举例：preset-es2015将ES6编译成ES5，preset-2017处理2017中的语法特性. Babel-preset-env支持所有es标准的特性，能够根据配置采用特定语法处理插件。比方说配置成支持chrome 56, 很多es6已经支持了，就不需要在转成一大坨es5了，减小了bundle的体积。原理比较粗暴，他参考compat-table 把每个浏">
@@ -59,9 +59,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/工程化/">工程化</a></li>
-	        
-				<li><a href="/tags/javascript/">javascript</a></li>
+				<li><a href="/tags/随笔/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -119,8 +117,6 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -138,14 +134,12 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/tags/工程化/">工程化</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/tags/javascript/">javascript</a></li>
+					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -189,7 +183,7 @@
 <h1 id="3-Babel-polyfill"><a href="#3-Babel-polyfill" class="headerlink" title="3. Babel-polyfill"></a>3. Babel-polyfill</h1><p>需要修改内置api才能达成的功能，譬如：扩展String.prototype，给上面增加includes方法，就属于修改内置API的范畴。这类操作就由polyfill提供。</p>
 <h1 id="4-babel-register-babel-node-babel-core"><a href="#4-babel-register-babel-node-babel-core" class="headerlink" title="4. babel-register,babel-node,babel-core"></a>4. babel-register,babel-node,babel-core</h1><p>参考阮老师文章 <a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2016/01/babel.html</a></p>
 <p>对于后台系统开发，大部分情况下可以降低兼容性(忽略IE) , 只适配几种浏览器. 由于目前现在浏览器对es6的适配已经非常高了，（chrome60: 90）, 那么就没有必要将es6都编译成es5了。 我们只需要配置preset-env和一些实现性质的插件就可以愉快的跑起来了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [</div><div class="line">    [&quot;env&quot;, &#123; // env包含当前es所有的特性，但是提案不在特性里面，</div><div class="line">      &quot;modules&quot;: false,</div><div class="line">      &quot;debug&quot;: true,</div><div class="line">      &quot;targets&quot;: &#123;</div><div class="line">        &quot;chrome&quot;: 56</div><div class="line">      &#125;</div><div class="line">    &#125;]</div><div class="line">  ],</div><div class="line">  &quot;plugins&quot;: [</div><div class="line">    &quot;transform-runtime&quot;,</div><div class="line">    &quot;transform-object-rest-spread&quot;</div><div class="line">  ],</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [</div><div class="line">    [&quot;env&quot;, &#123;</div><div class="line">      &quot;modules&quot;: false,</div><div class="line">      &quot;debug&quot;: true,</div><div class="line">      &quot;targets&quot;: &#123;</div><div class="line">        &quot;chrome&quot;: 56</div><div class="line">      &#125;</div><div class="line">    &#125;]</div><div class="line">  ],</div><div class="line">  &quot;plugins&quot;: [</div><div class="line">    &quot;transform-runtime&quot;,</div><div class="line">    &quot;transform-object-rest-spread&quot;</div><div class="line">  ],</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
 
@@ -302,11 +296,15 @@
   
 <nav id="article-nav">
   
-  
-    <a href="/2017/08/28/im/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">IM</div>
-      <i class="icon-circle-right"></i>
+    <a href="/2017/08/28/im/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          IM
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -441,6 +439,14 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">通信</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">webpack</a>
               </li>
              
@@ -450,14 +456,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">工程化</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">通信</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IM</a>
               </li>
             
             <div class="clearfix"></div>
