@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://peterchealse.github.io/2017/09/14/treeshaking/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="译文：http://2ality.com/2015/12/webpack-tree-shaking.html  作者:  Dr. Axel Rauschmayer, Twitter, Mastodon  tree shaking, 顾名思义：摇树，把树上面的枯枝烂叶子甩下来，目的是减小bundle size。这个构建优化手段起源于另一个打包工具rollup. 有些人觉得自己不会写出这些dead c">
-<meta property="og:updated_time" content="2017-09-18T12:02:12.000Z">
+<meta property="og:updated_time" content="2017-09-18T12:17:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack2之tree shaking">
 <meta name="twitter:description" content="译文：http://2ality.com/2015/12/webpack-tree-shaking.html  作者:  Dr. Axel Rauschmayer, Twitter, Mastodon  tree shaking, 顾名思义：摇树，把树上面的枯枝烂叶子甩下来，目的是减小bundle size。这个构建优化手段起源于另一个打包工具rollup. 有些人觉得自己不会写出这些dead c">
@@ -186,19 +186,13 @@
 <p>有些人觉得自己不会写出这些dead code、垃圾代码，因而怀疑tree shaking的意义。要知道现在很多库是设计成可以按需加载的，如echarts, rxjs, ramda，目的就是为了不引入所有的代码， 减小bundle体积。比如工具类的ramda有各种list, object, logic的各种方法， 你可能只用到了一个，是不需要将所有的方法都打包到bundle里面的。echarts可能只用到柱状图，也不需要把其他所有种类的图形打包起来， 这个太大了。就算现在网速快，流量也是要钱的。。。</p>
 <h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p>举例有es6模块如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">export function foo() &#123;</div><div class="line">    return &apos;foo&apos;;</div><div class="line">&#125;</div><div class="line">export function bar() &#123;</div><div class="line">    return &apos;bar&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>webpack将所有的es6 module打包到bundle里面。那些从来没有被import的export, 不再被export， 变成了<a href="https://en.wikipedia.org/wiki/Dead_code" target="_blank" rel="external">dead code</a>。 dead code就是在编译时不被export或者跟本用不到的函数、变量等等。比如代码中的bar.</li>
-</ol>
+<p>首先，webpack将所有的es6 module打包到bundle里面。那些从来没有被import的export, 不再被export， 变成了<a href="https://en.wikipedia.org/wiki/Dead_code" target="_blank" rel="external">dead code</a>。 dead code就是在编译时不被export或者跟本用不到的函数、变量等等。比如代码中的bar.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function(module, exports, __webpack_require__) &#123;</div><div class="line"></div><div class="line">	/* harmony export */ exports[&quot;foo&quot;] = foo;</div><div class="line">	</div><div class="line">    /* unused harmony export bar */;</div><div class="line"></div><div class="line">  function foo() &#123;</div><div class="line">    return &apos;foo&apos;;</div><div class="line">  &#125;</div><div class="line">  // i am dead function .... </div><div class="line">  function bar() &#123;</div><div class="line">    return &apos;bar&apos;;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>需要注意的是， 这里不能用transform-es2015-modules-commonjs，因为它的模块系统是个对象，运行时才能确定具体的需要的export。模块将被转化成为如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function(module, exports) &#123;</div><div class="line"></div><div class="line">	&apos;use strict&apos;;</div><div class="line"></div><div class="line">	Object.defineProperty(exports, &quot;__esModule&quot;, &#123;</div><div class="line">	    value: true</div><div class="line">	&#125;);</div><div class="line">	exports.foo = foo;</div><div class="line">	exports.bar = bar;</div><div class="line">	function foo() &#123;</div><div class="line">	    return &apos;foo&apos;;</div><div class="line">	&#125;</div><div class="line">	function bar() &#123;</div><div class="line">	    return &apos;bar&apos;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>利用ulglify工具干掉dead code, 进行混淆。</li>
-</ol>
+<p>然后，利用ulglify工具干掉dead code, 进行混淆。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function (t, n, r) &#123;</div><div class="line">    function e() &#123;</div><div class="line">        return &quot;foo&quot;</div><div class="line">    &#125;</div><div class="line">    n.foo = e</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ol>
-<li>最后压缩成*.min.js.</li>
-</ol>
+<p>最后对bundle进行压缩操作。</p>
 
       
 
