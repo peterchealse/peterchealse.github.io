@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://peterchealse.github.io">
-  <title>Hexo</title>
+  <title>webpack2之tree shaking | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://peterchealse.github.io/index.html">
+  <meta name="description" content="译文：http://2ality.com/2015/12/webpack-tree-shaking.html  作者:  Dr. Axel Rauschmayer, Twitter, Mastodon  tree shaking, 顾名思义：摇树，把树上面的枯枝烂叶子甩下来，目的是减小bundle size。这个构建优化手段起源于另一个打包工具rollup. 有些人觉得自己不会写出这些dead c">
+<meta name="keywords" content="webpack,工程化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack2之tree shaking">
+<meta property="og:url" content="http://peterchealse.github.io/2017/09/14/treeshaking/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="译文：http://2ality.com/2015/12/webpack-tree-shaking.html  作者:  Dr. Axel Rauschmayer, Twitter, Mastodon  tree shaking, 顾名思义：摇树，把树上面的枯枝烂叶子甩下来，目的是减小bundle size。这个构建优化手段起源于另一个打包工具rollup. 有些人觉得自己不会写出这些dead c">
+<meta property="og:updated_time" content="2017-09-18T12:02:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="webpack2之tree shaking">
+<meta name="twitter:description" content="译文：http://2ality.com/2015/12/webpack-tree-shaking.html  作者:  Dr. Axel Rauschmayer, Twitter, Mastodon  tree shaking, 顾名思义：摇树，把树上面的枯枝烂叶子甩下来，目的是减小bundle size。这个构建优化手段起源于另一个打包工具rollup. 有些人觉得自己不会写出这些dead c">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -153,16 +158,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-treeshaking" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-treeshaking" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/14/treeshaking/">webpack2之tree shaking</a>
+    <h1 class="article-title" itemprop="name">
+      webpack2之tree shaking
     </h1>
   
 
@@ -200,6 +203,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -222,16 +246,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/14/treeshaking/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://peterchealse.github.io/2017/09/14/treeshaking/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/28/babel/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关于Babel与构建优化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -251,194 +334,28 @@
 
 
 
-
   
-    <article id="post-babel" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/28/babel/">关于Babel与构建优化</a>
-    </h1>
   
 
-        
-        <a href="/2017/08/28/babel/" class="archive-article-date">
-  	<time datetime="2017-08-28T07:38:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-preset"><a href="#1-preset" class="headerlink" title="1.preset-*"></a>1.preset-*</h1><h3 id="官方preset"><a href="#官方preset" class="headerlink" title="官方preset"></a><a href="https://babeljs.io/docs/plugins/#presets-official-presets" target="_blank" rel="external">官方preset</a></h3><p>举例：preset-es2015将ES6编译成ES5，preset-2017处理2017中的语法特性.</p>
-<h3 id="babel-preset-env"><a href="#babel-preset-env" class="headerlink" title="babel-preset-env"></a><a href="https://babeljs.io/docs/plugins/preset-env/" target="_blank" rel="external">babel-preset-env</a></h3><p>支持所有es标准的特性，能够根据配置采用特定语法处理插件。比方说配置成支持chrome 56, 很多es6已经支持了，就不需要在转成一大坨es5了，减小了bundle的体积。原理比较粗暴，他参考<a href="https://github.com/kangax/compat-table" target="_blank" rel="external">compat-table</a> 把每个浏览器版本支持哪些特性都写在本地的文件里了。</p>
-<h3 id="preset-latest"><a href="#preset-latest" class="headerlink" title="preset-latest"></a><a href="https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-" target="_blank" rel="external">preset-latest</a></h3><p>顾名思义，最新的，包括所有的官方preset-*, 但是已经deprecated, 因为env的存在。</p>
-<h3 id="stage-X"><a href="#stage-X" class="headerlink" title="stage-X"></a><a href="https://babeljs.io/docs/plugins/#presets-stage-x-experimental-presets-" target="_blank" rel="external">stage-X</a></h3><p>相对于preset-*, 此插件支持尚未被发布为es标准的实验性质的语法特性，意思就是后面可能会被干掉的。比如说object-rest-spread.<br>这个比较蛋疼，只能说是特定时间，处于某个状态（0，1，2，3，4）的一系列特性的集合。 babel正在考虑废除，因为直接配置插件更加直观。</p>
-<p>babel处于构建时，只处理语法，不处理api.</p>
-<h1 id="2-babel-core-标准库"><a href="#2-babel-core-标准库" class="headerlink" title="2. babel-core(标准库)"></a>2. babel-core(标准库)</h1><p>顾名思义，核心！核心！核心！各种es5,6,7各种polyfill。<br>例如对Arry.from进行Polyfill:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var core = require(&apos;core-js/library&apos;);</div><div class="line">core.Array.from(new core.Set([1, 2, 3, 2, 1]));</div></pre></td></tr></table></figure></p>
-<h1 id="3-babel-runtime"><a href="#3-babel-runtime" class="headerlink" title="3. babel-runtime"></a>3. babel-runtime</h1><p>由core-js 与 regenerator-runtime构成。<br>使用方法：const Promise = require(‘babel-runtime/core-js/promise’), 比较原始。<br>供编译模块复用工具函数, 主要目的是减小包体积。对比babel-polyfill, 后者是会污染全局的，使用也很粗暴：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import &apos;babel-polyfill&apos;;</div></pre></td></tr></table></figure></p>
-<h1 id="4-babel-plugin-transform-runtime-babel-polyfill"><a href="#4-babel-plugin-transform-runtime-babel-polyfill" class="headerlink" title="4. babel-plugin-transform-runtime, babel-polyfill"></a>4. babel-plugin-transform-runtime, babel-polyfill</h1><p>transform-runtime对于JavaScript新增的API和一些全局对象上的方法，在运行时动态插入兼容补丁，避免在每个文件插入重复的补丁。调试的时候可以看一下每个文件头部被插入了一段的代码。<br>配置简单(.babelrc)，比babel-runtime更加智能，实际上是站在babel-runtime的肩膀上，而babel-runtime是站在了babel-core的肩膀上。<br>容易和babel-polyfill搞混。参考知乎上的一篇<a href="https://zhuanlan.zhihu.com/p/29058936" target="_blank" rel="external">文章</a>。<br>主要区别在于babel-polyfill侵入性太强，会修改builtins 和 prototype, 类似于很早的prototype.js, 因此绝对不能用来搞轮子，容易破坏别人的轮子。babel-plugin-transform-runtime采用sandbox，不修改全局变量, 而且不修改prototype， 适合开发第三方库。</p>
-<h1 id="5-babel-register-babel-node"><a href="#5-babel-register-babel-node" class="headerlink" title="5. babel-register,babel-node"></a>5. babel-register,babel-node</h1><p>其他参考阮老师文章 <a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2016/01/babel.html</a></p>
-<h1 id="关于构建优化"><a href="#关于构建优化" class="headerlink" title="关于构建优化"></a>关于构建优化</h1><p>对于后台系统开发，大部分情况下可以考虑现在浏览器. 由于目前现在浏览器对es6的适配已经非常高了，chrome60达到90%, 那么就没有必要将es6一股脑都编译成es5了。 我们只需要配置preset-env和一些transform插件就可以愉快地跑起来了。<br>对ts可以做同样的优化：先将ts编译的target设置为es6, 再送到babel按浏览器环境进行polyfill， 最终在浏览器里调试的代码要好看的多。我觉得最好的一点就可以保留class， 而不是其他的方式去实现它。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;presets&quot;: [</div><div class="line">    [&quot;env&quot;, &#123;</div><div class="line">      &quot;modules&quot;: false,</div><div class="line">      &quot;debug&quot;: true,</div><div class="line">      &quot;targets&quot;: &#123;</div><div class="line">        &quot;chrome&quot;: 56</div><div class="line">      &#125;</div><div class="line">    &#125;]</div><div class="line">  ],</div><div class="line">  &quot;plugins&quot;: [</div><div class="line">    &quot;transform-runtime&quot;,</div><div class="line">    &quot;transform-object-rest-spread&quot;</div><div class="line">  ],</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">webpack</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">babel</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">工程化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/28/babel/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-im" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/28/im/">IM</a>
-    </h1>
   
 
-        
-        <a href="/2017/08/28/im/" class="archive-article-date">
-  	<time datetime="2017-08-28T07:38:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近涉及到一些即时通讯的知识，大概记录一下</p>
-<h4 id="通讯协议及方式"><a href="#通讯协议及方式" class="headerlink" title="通讯协议及方式"></a>通讯协议及方式</h4><ol>
-<li>TCP/IP （普遍采用该方式）</li>
-<li>UDP</li>
-<li>如果是web通讯，那么包含以下方式：短轮询、Comet、Websocket、SSE。由于浏览器只是一个客户端，那么通讯是依赖于服务器的，这是跟移动应用或者桌面应用一个区别的地方。</li>
-</ol>
-<h4 id="通讯方式"><a href="#通讯方式" class="headerlink" title="通讯方式"></a>通讯方式</h4><ol>
-<li>对等通讯方式（Peer To Peer） ，不经过IM服务器</li>
-<li>通过IM服务器中转（代理通讯）</li>
-<li>离线通讯（离线消息，通过服务器缓存）</li>
-</ol>
-<p>步骤：</p>
-<ol>
-<li>登陆，Im服务器进行验证，更新登陆状态</li>
-<li>读取IM服务器好友列表，获取Ip，端口等信息</li>
-<li>直接根据好友信息进行对等通讯，或者通过服务器进行中转通讯</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/28/im/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'http-peterchealse-github-io'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
   
 
 
@@ -461,8 +378,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
